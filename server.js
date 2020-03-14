@@ -4,6 +4,15 @@ var http = require("http");
 
 var port = 8080;
 
+String.prototype.format = function(){
+    let originalString = this;
+    for(var index in arguments){
+        originalString = originalString.replace("{" + index + "}", arguments[index]);
+    }
+
+    return originalString;
+}
+
 function error404(response){
     response.writeHead(404, {"ContentType" : "text/plain"});
     response.write("Whoops, the file that you requested does not seem to exist :/");
