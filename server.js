@@ -6,6 +6,7 @@ var port = 8080;
 
 String.prototype.format = function(){
     let originalString = this;
+    
     for(var index in arguments){
         originalString = originalString.replace("{" + index + "}", arguments[index]);
     }
@@ -26,7 +27,6 @@ function getIndex(response){
         response.write(data);
         response.end();
     });
-
     return;
 }
 
@@ -36,13 +36,20 @@ function getStyles(response){
         response.write(data);
         response.end();
     });
-
     return;
 }
 
 function getImage(request, response){
     let desiredPhoto = ".{0}".format(request.url);
-    console.log("trying to get %s", desiredPhoto);
+    let filetype = getFileType(request);
+
+    fs.readFile(desiredPhoto, function(error, data){
+        response.writeHead(200, {"ContentType" : "image/{0}".format(filetype)});
+        response.write(data);
+        response.end();
+    })
+
+    return;
 }
 
 function getFileType(request){
