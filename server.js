@@ -41,16 +41,26 @@ function getStyles(response){
 }
 
 function getImage(request, response){
-    let desiredPhoto = request.url;
+    let desiredPhoto = ".{0}".format(request.url);
+    console.log("trying to get %s", desiredPhoto);
+}
+
+function getFileType(request){
+    let filename = request.url;
+    let parts = filename.split('.');
+    return parts[1];
 }
 
 function onRequest(request, response){
+    let imageTypes = ["jpg", "jpeg", "png", "jfif", "gif", "bmp", "tiff", "svg"];
     console.log("A request has been made to %s", request.url);
 
     if(request.method == "GET" && request.url == "/"){
         getIndex(response);
     }else if(request.method == "GET" && request.url == "/styles.css"){
         getStyles(response);
+    }else if(request.method == "GET" && imageTypes.includes(getFileType(request))){
+        getImage(request, response);
     }else{
         error404(response);
     }
