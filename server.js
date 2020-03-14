@@ -4,7 +4,10 @@ var http = require("http");
 
 var port = 8080;
 
-function error404(request){
+function error404(response){
+    response.writeHead(404, {"ContentType" : "text/plain"});
+    response.write("Whoops, the file that you requested does not seem to exist :/");
+    response.end();
     return;
 }
 
@@ -14,6 +17,8 @@ function getIndex(response){
         response.write(data);
         response.end();
     });
+
+    return;
 }
 
 function getStyles(response){
@@ -22,6 +27,12 @@ function getStyles(response){
         response.write(data);
         response.end();
     });
+
+    return;
+}
+
+function getImage(request, response){
+    let desiredPhoto = request.url;
 }
 
 function onRequest(request, response){
@@ -29,10 +40,12 @@ function onRequest(request, response){
 
     if(request.method == "GET" && request.url == "/"){
         getIndex(response);
-    }
-    if(request.method){
+    }else if(request.method == "GET" && request.url == "/styles.css"){
         getStyles(response);
+    }else{
+        error404(response);
     }
+
 }
 
 http.createServer(onRequest).listen(port);
