@@ -19,6 +19,4 @@
             <img src="./stockimages/stock5.jpg" class="photo"/>
         </div>
     </body>
-    <!--ha ha it's javascript time-->
-    <script type="text/javascript" src="./check_files.js"></script>
 </html>
