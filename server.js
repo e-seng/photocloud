@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 var fs = require("fs");
 var http = require("http");
+var manager = require("./manage_files.js")
 
 var port = 8080;
 
@@ -72,6 +73,7 @@ function onRequest(request, response){
     console.log("A request has been made to %s", request.url);
 
     if(request.method == "GET" && request.url == "/"){
+        manager.updateJson();
         getIndex(response);
     }else if(request.method == "GET" && request.url == "/styles.css"){
         getStyles(response);
