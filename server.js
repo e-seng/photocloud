@@ -30,6 +30,15 @@ function getIndex(response){
     return;
 }
 
+function getCheckFile(response){
+    fs.readFile("./javascript/check_files.js", function(error, data){
+        response.writeHead(200, {"ContentType" : "text/javacript"});
+        response.write(data);
+        response.end();
+    });
+    return;
+}
+
 function getStyles(response){
     fs.readFile("./css/styles.css", function(error, data){
         response.writeHead(200, {"ContentType" : "text/css"});
@@ -68,6 +77,8 @@ function onRequest(request, response){
         getStyles(response);
     }else if(request.method == "GET" && imageTypes.includes(getFileType(request))){
         getImage(request, response);
+    }else if(request.method == "GET" && request.url == "/check_files.js"){
+        getCheckFile(response);
     }else{
         error404(response);
     }
