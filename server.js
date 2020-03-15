@@ -22,8 +22,8 @@ function error404(response){
 }
 
 function getIndex(response){
-    fs.readFile("./index.html", function(error, data){
-        response.writeHead(200, {"ContentType" : "text/html"});
+    fs.readFile("./index.php", function(error, data){
+        response.writeHead(200, {"ContentType" : "text/php"});
         response.write(data);
         response.end();
     });
