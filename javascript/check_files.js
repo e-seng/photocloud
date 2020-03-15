@@ -1,0 +1,1 @@
+// Checks and populates the website with photos
