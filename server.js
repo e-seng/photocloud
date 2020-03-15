@@ -79,6 +79,12 @@ function onRequest(request, response){
         getImage(request, response);
     }else if(request.method == "GET" && request.url == "/check_files.js"){
         getCheckFile(response);
+    }else if(request.method == "GET" && request.url == "/test"){
+        fs.readFile("./php/test.php", function(err, data){
+            response.writeHead(200, {"ContentType" : "text/php"});
+            response.write(data);
+            response.end();
+        });
     }else{
         error404(response);
     }
