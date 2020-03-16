@@ -1,4 +1,4 @@
-// This file should be included in the server to update the photos.json file
+// This file should be included in the server to update the photos.txt file
 var fs = require("fs");
 
 const DIRECTORIES = ["./stockimages/",]
