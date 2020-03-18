@@ -17,20 +17,6 @@ function getFileNames(){
     return files;
 }
 
-function getExistingFiles(reader, array){
-    reader.on("data", function(data){
-        func(data);
-    });
-
-    reader.on("end", function(){
-        console.log("end");
-    });
-}
-
-function dump_data(data, array){
-    array.push(data);
-}
-
 module.exports = {
     updateJson: function updateJson(){
 
