@@ -18,7 +18,7 @@ function getFileNames(){
 }
 
 module.exports = {
-    updateJson: function updateJson(){
+    updateTxt: function updateTxt(){
 
         let files = getFileNames();
         let existing_files = fs.readFileSync("photo_list.txt", "utf-8").split("\n");

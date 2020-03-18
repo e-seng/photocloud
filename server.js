@@ -73,7 +73,7 @@ function onRequest(request, response){
     console.log("A request has been made to %s", request.url);
 
     if(request.method == "GET" && request.url == "/"){
-        manager.updateJson();
+        manager.updateTxt();
         getIndex(response);
     }else if(request.method == "GET" && request.url == "/styles.css"){
         getStyles(response);
