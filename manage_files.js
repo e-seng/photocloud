@@ -1,11 +1,12 @@
 // This file should be included in the server to update the photos.txt file
 var fs = require("fs");
 
-const DIRECTORIES = ["./stockimages/",]
+const DIRECTORIES = ["./stockimages/","./additional_photos/"]
 
 function getFileNames(){
     let files = [];
     DIRECTORIES.forEach(function(dir){
+        if(!fs.existsSync(dir)){return;}
         filenames = fs.readdirSync(dir);
         
         filenames.forEach(function(file){
