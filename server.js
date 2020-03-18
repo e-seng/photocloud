@@ -2,7 +2,6 @@
 var fs = require("fs");
 var http = require("http");
 var manager = require("./manage_files.js")
-var xml = require("xml")
 
 var port = 8080;
 
@@ -69,17 +68,20 @@ function getFileType(request){
     return parts[1];
 }
 
-function getFileCount(response){
-    let count = manager.countFiles();
+function getPhotos(request, response){
+    let urlParts = request.url.split(/[=&]/);
+    let desiredAmount = parseInt(urlParts[1]);
+    let currentCount = parseInt(urlParts[3]);
 
+    let newPhotos = manager.getFiles(desiredAmount, currentCount);
     response.writeHead(200, {"ContentType" : "application/xml"});
-    response.write(xml(count));
+    response.write(newPhotos);
     response.end();
 }
 
 function onRequest(request, response){
     let imageTypes = ["jpg", "jpeg", "png", "jfif", "gif", "bmp", "tiff", "svg"];
-    console.log("A request has been made to %s", request.url);
+    console.log("A request has been made to {0} {1}".format(request.method, request.url));
 
     if(request.method == "GET" && request.url == "/"){
         manager.updateTxt();
@@ -90,14 +92,8 @@ function onRequest(request, response){
         getImage(request, response);
     }else if(request.method == "GET" && request.url == "/check_files.js"){
         getCheckFile(response);
-    }else if(request.method == "GET" && request.url == "/test"){
-        fs.readFile("./php/test.php", function(err, data){
-            response.writeHead(200, {"ContentType" : "text/php"});
-            response.write(data);
-            response.end();
-        });
-    }else if(request.method == "GET" && request.url == "/getcount"){
-        getFileCount(response);
+    }else if(request.method == "GET" && request.url.split("?")[0] == "/getphotos"){
+        getPhotos(request, response);
     }else{
         error404(response);
     }
