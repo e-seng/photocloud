@@ -2,6 +2,7 @@
 var fs = require("fs");
 var http = require("http");
 var manager = require("./manage_files.js")
+var xml = require("xml")
 
 var port = 8080;
 
@@ -68,6 +69,14 @@ function getFileType(request){
     return parts[1];
 }
 
+function getFileCount(response){
+    let count = manager.countFiles();
+
+    response.writeHead(200, {"ContentType" : "application/xml"});
+    response.write(xml(count));
+    response.end();
+}
+
 function onRequest(request, response){
     let imageTypes = ["jpg", "jpeg", "png", "jfif", "gif", "bmp", "tiff", "svg"];
     console.log("A request has been made to %s", request.url);
@@ -87,6 +96,8 @@ function onRequest(request, response){
             response.write(data);
             response.end();
         });
+    }else if(request.method == "GET" && request.url == "/getcount"){
+        getFileCount(response);
     }else{
         error404(response);
     }
