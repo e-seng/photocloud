@@ -14,7 +14,7 @@ String.prototype.format = function(){
 
 
 window.onscroll = function(ev){
-    if((window.innerHeight + window.scrollY) != document.body.scrollHeight) {
+    if((window.innerHeight + window.scrollY) > document.body.scrollHeight) {
         return;
     }
     requestPhotos();
