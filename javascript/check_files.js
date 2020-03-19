@@ -1,6 +1,7 @@
 // Checks for and populates the website with photos found within the local directory
 var photo_count;
 var limit;
+var photoArray = [];
 
 String.prototype.format = function(){
     let string = this;
@@ -30,21 +31,20 @@ function requestPhotos(){
 
     xml.onreadystatechange = function(){
         if(this.readyState != 4 && this.status != 200){return;}
-        if(document.getElementById("photos").innerHTML.includes(xml.responseText)){return;}
-        document.getElementById("photos").innerHTML += xml.responseText;
-        console.count("hitting bottom");
+        if(photoArray.includes(xml.responseText)){return;}
+        photoArray.push(xml.responseText);
+        updatePage();
     }
 
     xml.open("GET", "./getphotos?add={0}&current={1}".format(photosToAdd, photoCount));
     xml.send();
 }
 
-function writePhotos(){
-    // Get the maximum number of photos on the server
-    
-    var limit;
+function updatePage(){
+    var collectedPhotos = "";
+    photoArray.forEach(function(photoSet){
+        collectedPhotos += photoSet;
+    });
 
-    if (limit){
-        return limit;
-    }
+    document.getElementById("photos").innerHTML = collectedPhotos;
 }

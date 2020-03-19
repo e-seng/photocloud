@@ -31,7 +31,6 @@ module.exports = {
             fs.appendFile("./photo_list.txt", file, function(err){
                 if(err) throw err;
             });   
-            
         });
     },
 
