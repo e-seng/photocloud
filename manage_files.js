@@ -1,7 +1,7 @@
 // This file should be included in the server to update the photos.txt file
 var fs = require("fs");
 
-const DIRECTORIES = ["./WhatsApp_Images/",]
+const DIRECTORIES = ["./stockimages/",]
 
 function getFileNames(){
     let files = [];
@@ -45,7 +45,7 @@ module.exports = {
 
             let photoURL = existingFiles[index];
             console.log(photoURL)
-            let addString = "<img src={0} class=\"photo\" />{1}".format(photoURL,"{0}");
+            let addString = "<img src=\"{0}\" class=\"photo\" />{1}".format(photoURL,"{0}");
             finalString = finalString.format(addString);
         }
 

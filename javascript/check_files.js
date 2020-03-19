@@ -46,5 +46,7 @@ function updatePage(){
         collectedPhotos += photoSet;
     });
 
+    console.log(collectedPhotos);
+
     document.getElementById("photos").innerHTML = collectedPhotos;
 }
