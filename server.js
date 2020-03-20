@@ -3,7 +3,7 @@ var fs = require("fs");
 var http = require("http");
 var manager = require("./manage_files.js")
 
-var port = 8080;
+var port = 80;
 
 String.prototype.format = function(){
     let originalString = this;
