@@ -1,5 +1,5 @@
 ./stockimages/stock1.jpg
+./stockimages/stock2.jpg
 ./stockimages/stock4.jpg
 ./stockimages/stock3.jpg
-./stockimages/stock2.jpg
 ./stockimages/stock5.jpg
