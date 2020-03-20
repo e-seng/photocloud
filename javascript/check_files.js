@@ -1,7 +1,8 @@
 // Checks for and populates the website with photos found within the local directory
 var photo_count;
-var limit;
+var limitReached = false;
 var photoArray = [];
+const photosToAdd = 5;
 
 String.prototype.format = function(){
     let string = this;
@@ -23,7 +24,6 @@ window.onscroll = function(ev){
 //document.getElementById("").innerHTML = "";
 
 function requestPhotos(){
-    const photosToAdd = 5;
     photoCount = document.querySelectorAll(".photo").length;
     
     // Call for the next photos to be loaded
@@ -42,11 +42,14 @@ function requestPhotos(){
 
 function updatePage(){
     var collectedPhotos = "";
+    var photoCount = 0;
     photoArray.forEach(function(photoSet){
         collectedPhotos += photoSet;
+        photoCount++;
     });
 
-    console.log(collectedPhotos);
-
     document.getElementById("photos").innerHTML = collectedPhotos;
+
+    limitReached = document.querySelectorAll(".photo") % photosToAdd;
+    
 }
