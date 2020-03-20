@@ -1,2 +1,5 @@
 # gitignore
 *.DS*
+
+# Ignore the large folder which I use for testing at home
+WhatsApp_Images\/*
