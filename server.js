@@ -82,7 +82,7 @@ function getPhotos(request, response){
 }
 
 function onRequest(request, response){
-    let imageTypes = ["jpg", "jpeg", "png", "jfif", "gif", "bmp", "tiff", "svg"];
+    const imageTypes = ["jpg", "jpeg", "png", "jfif", "gif", "bmp", "tiff", "svg"];
     console.log("A request has been made to {0} {1}".format(request.method, request.url));
 
     if(request.method == "GET" && request.url == "/"){
