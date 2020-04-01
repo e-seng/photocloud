@@ -77,6 +77,8 @@ function getPhotos(request, response){
     response.writeHead(200, {"ContentType" : "application/xml"});
     response.write(newPhotos);
     response.end();
+
+    return;
 }
 
 function onRequest(request, response){
