@@ -5,16 +5,6 @@ var manager = require("./manage_files.js")
 
 var port = 80;
 
-String.prototype.format = function(){
-    let originalString = this;
-    
-    for(var index in arguments){
-        originalString = originalString.replace("{" + index + "}", arguments[index]);
-    }
-
-    return originalString;
-}
-
 function error404(response){
     response.writeHead(404, {"ContentType" : "text/plain"});
     response.write("Whoops, the file that you requested does not seem to exist :/");
@@ -50,11 +40,11 @@ function getStyles(response){
 }
 
 function getImage(request, response){
-    let desiredPhoto = ".{0}".format(request.url);
+    let desiredPhoto = `.${request.url}`;
     let filetype = getFileType(request);
 
     fs.readFile(desiredPhoto, function(error, data){
-        response.writeHead(200, {"ContentType" : "image/{0}".format(filetype)});
+        response.writeHead(200, {"ContentType" : `image/${filetype}`});
         response.write(data);
         response.end();
     })
@@ -84,7 +74,11 @@ function getPhotos(request, response){
 
 function onRequest(request, response){
     const imageTypes = ["jpg", "jpeg", "png", "jfif", "gif", "bmp", "tiff"];
-    console.log("A request has been made to {0} {1}".format(request.method, request.url));
+    let ip = (request.headers['x-forwarded-for'] || '').split(',').pop() ||
+         request.connection.remoteAddress ||
+         request.socket.remoteAddress ||
+         request.connection.socket.remoteAddress;
+    console.log(`${ip} made a ${request.method} request to ${request.url}`);
 
     if(request.method == "GET" && request.url == "/"){
         manager.updateTxt();
