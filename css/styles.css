@@ -20,11 +20,11 @@ body{
 
 #photos{
     display: grid;
-    height: 100%;
+    min-height: 51vh;
     width: 100%;
 
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    grid-template-rows: repeat(999999, 400px);
+    /*grid-template-rows: repeat(999999, 400px);*/
 }
 
 .photo{
