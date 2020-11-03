@@ -1,13 +1,21 @@
 #!/usr/bin/env node
-var fs = require("fs");
-var http = require("http");
-var manager = require("./manage_files.js")
+const fs = require("fs");
+const http = require("http");
+const path = require("path");
 
-var port = 80;
+const manager = require("./manage_files.js")
+
+const PORT = 80;
+const ROOT_DIR = "."
+
+function getFileType(request){
+    let filename = request.url;
+    return filename.split('.').slice(-1);
+}
 
 function error404(response){
     response.writeHead(404, {"ContentType" : "text/plain"});
-    response.write("Whoops, the file that you requested does not seem to exist :/");
+    response.write("Error 404: That path does not seem to exist");
     response.end();
     return;
 }
@@ -52,12 +60,6 @@ function getImage(request, response){
     return;
 }
 
-function getFileType(request){
-    let filename = request.url;
-    let parts = filename.split('.');
-    return parts[1];
-}
-
 function getPhotos(request, response){
     let urlParts = request.url.split(/[=&]/);
     let desiredAmount = parseInt(urlParts[1]);
@@ -97,5 +99,5 @@ function onRequest(request, response){
 
 }
 
-http.createServer(onRequest).listen(port);
-console.log("Local server started on %d", port);
+http.createServer(onRequest).listen(PORT);
+console.log("Local server started on %d", PORT);
