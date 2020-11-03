@@ -10,7 +10,7 @@ const ROOT_DIR = "."
 
 function getFileType(request){
     let filename = request.url;
-    return filename.split('.').slice(-1);
+    return filename.split('.').slice(-1)[0];
 }
 
 function error404(response){
