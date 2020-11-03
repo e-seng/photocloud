@@ -6,7 +6,7 @@ const path = require("path");
 const manager = require("./manage_files.js")
 
 const PORT = 80;
-const ROOT_DIR = "."
+const ROOT_DIR = process.cwd(); // this should be altered in deployment
 
 function getFileType(request){
     let filename = request.url;
@@ -17,33 +17,60 @@ function error404(response){
     response.writeHead(404, {"ContentType" : "text/plain"});
     response.write("Error 404: That path does not seem to exist");
     response.end();
-    return;
+}
+
+function error500(response){
+    response.writeHead(500, {"ContentType" : "text/plain"});
+    response.write("Error 500: Something went wrong with the server");
+    response.end();
 }
 
 function getIndex(response){
-    fs.readFile("./index.html", function(error, data){
-        response.writeHead(200, {"ContentType" : "text/html"});
-        response.write(data);
-        response.end();
-    });
-    return;
+    filepath = path.join(ROOT_DIR, "index.html");
+
+    try{
+        data = fs.readFileSync(filepath);
+    }catch(err){
+        error500(response);
+        console.log(`Error: ${err}`);
+        return;
+    }
+
+    response.writeHead(200, {"ContentType" : "text/html"});
+    response.write(data);
+    response.end();
 }
 
 function getCheckFile(response){
-    fs.readFile("./javascript/check_files.js", function(error, data){
-        response.writeHead(200, {"ContentType" : "text/javacript"});
-        response.write(data);
-        response.end();
-    });
-    return;
+    filepath = path.join(ROOT_DIR, "javascript", "check_files.js");
+
+    try{
+        data = fs.readFileSync(filepath);
+    }catch(err){
+        error500(response);
+        console.log(`Error: ${err}`);
+        return;
+    }
+
+    response.writeHead(200, {"ContentType" : "text/javascript"});
+    response.write(data);
+    response.end();
 }
 
 function getStyles(response){
-    fs.readFile("./css/styles.css", function(error, data){
-        response.writeHead(200, {"ContentType" : "text/css"});
-        response.write(data);
-        response.end();
-    });
+    filepath = path.join(ROOT_DIR, "css", "styles.css");
+
+    try{
+        data = fs.readFileSync(filepath);
+    }catch(err){
+        error500(response);
+        console.log(`Error: ${err}`);
+        return;
+    }
+
+    response.writeHead(200, {"ContentType" : "text/css"});
+    response.write(data);
+    response.end();
     return;
 }
 
@@ -51,11 +78,23 @@ function getImage(request, response){
     let desiredPhoto = `.${request.url}`;
     let filetype = getFileType(request);
 
-    fs.readFile(desiredPhoto, function(error, data){
-        response.writeHead(200, {"ContentType" : `image/${filetype}`});
-        response.write(data);
-        response.end();
-    })
+    filepath = ROOT_DIR;
+
+    request.url.split('/').forEach(function(url_part){
+        filepath = path.join(filepath, url_part);
+    });
+
+    try{
+        data = fs.readFileSync(filepath);
+    }catch(err){
+        error500(response);
+        console.log(`Error: ${err}`);
+        return;
+    }
+
+    response.writeHead(200, {"ContentType" : `image/${filetype}`});
+    response.write(data);
+    response.end();
 
     return;
 }
