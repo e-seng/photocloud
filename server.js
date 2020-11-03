@@ -72,9 +72,10 @@ function getPhotos(request, response){
     let urlParts = request.url.split(/[=&]/);
     let desiredAmount = parseInt(urlParts[1]);
     let currentCount = parseInt(urlParts[3]);
+    let filetype = getFileType(request);
 
     let newPhotos = manager.getFiles(desiredAmount, currentCount);
-    response.writeHead(200, {"ContentType" : "application/xml"});
+    response.writeHead(200, {"ContentType" : `image/${filetype}`});
     response.write(newPhotos);
     response.end();
 
@@ -82,7 +83,7 @@ function getPhotos(request, response){
 }
 
 function onRequest(request, response){
-    const imageTypes = ["jpg", "jpeg", "png", "jfif", "gif", "bmp", "tiff", "svg"];
+    const imageTypes = ["jpg", "jpeg", "png", "jfif", "gif", "bmp", "tiff"];
     console.log("A request has been made to {0} {1}".format(request.method, request.url));
 
     if(request.method == "GET" && request.url == "/"){

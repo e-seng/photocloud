@@ -41,7 +41,7 @@ module.exports = {
 
         for(let counter = 0; counter < desiredAmount; counter++){
             let index = currentCount + counter;
-            if(index >= limit){break;}
+            if(index >= limit){return "end";}
 
             let photoURL = existingFiles[index];
             console.log(photoURL)
@@ -51,7 +51,7 @@ module.exports = {
 
         finalString = finalString.format("\n");
         return finalString;
-    }
+    },
 }
 
 String.prototype.format = function(){

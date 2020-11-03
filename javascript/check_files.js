@@ -29,12 +29,19 @@ function requestPhotos(){
     // Call for the next photos to be loaded
     var xml = new XMLHttpRequest();
 
-    xml.onreadystatechange = function(){
-        if(this.readyState != 4 && this.status != 200){return;}
+    xml.onreadystatechange = function(){        
+        if(this.readyState !== 4 && this.status !== 200){return;}
+        if(xml.responseText.length == 3 || !xml.responseText.length){
+            limitReached = true;
+            return;
+        }
         if(photoArray.includes(xml.responseText)){return;}
+        console.log(xml.responseText.length);
         photoArray.push(xml.responseText);
         updatePage();
     }
+
+    if(limitReached){return;}
 
     xml.open("GET", "./getphotos?add={0}&current={1}".format(photosToAdd, photoCount));
     xml.send();
@@ -44,12 +51,13 @@ function updatePage(){
     var collectedPhotos = "";
     var photoCount = 0;
     photoArray.forEach(function(photoSet){
+        if(photoSet.length === 3 || !photoSet.length){return;}
         collectedPhotos += photoSet;
         photoCount++;
     });
 
     document.getElementById("photos").innerHTML = collectedPhotos;
 
-    limitReached = document.querySelectorAll(".photo") % photosToAdd;
+    limitReached = !photoArray.length;
     
 }
