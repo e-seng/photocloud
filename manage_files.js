@@ -11,7 +11,7 @@ function getFileNames(){
         
         filenames.forEach(function(file){
             if(file[0] == "."){return;}
-            let filepath = "{0}{1}\n".format(dir, file);
+            let filepath = `${dir}${file}\n`;
             files.push(filepath);
         });
     });
@@ -37,7 +37,7 @@ module.exports = {
     getFiles: function getFiles(desiredAmount, currentCount){
         let existingFiles = fs.readFileSync("photo_list.txt", "utf-8").split("\n");
         let limit = existingFiles.length - 1;
-        let finalString = "{0}";
+        let finalString = [];
 
         for(let counter = 0; counter < desiredAmount; counter++){
             let index = currentCount + counter;
@@ -45,22 +45,10 @@ module.exports = {
 
             let photoURL = existingFiles[index];
             console.log(photoURL)
-            let addString = "<img src=\"{0}\" class=\"photo\" />{1}".format(photoURL,"{0}");
-            finalString = finalString.format(addString);
+            finalString.push(`<img src=\"${photoURL}\" class=\"photo\" />`);
         }
 
-        finalString = finalString.format("\n");
-        return finalString;
+        finalString.push("\n");
+        return finalString.join('');
     },
 }
-
-String.prototype.format = function(){
-    let string = this;
-
-    for (let index in arguments){
-        string = string.replace("{" + addText + "}", arugments[index]);
-    }
-
-    return string;
-}
-
