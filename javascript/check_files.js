@@ -4,17 +4,6 @@ var limitReached = false;
 var photoArray = [];
 const photosToAdd = 5;
 
-String.prototype.format = function(){
-    let string = this;
-
-    for (let index in arguments){
-        string = string.replace("{" + index + "}", arguments[index]);
-    }
-
-    return string;
-}
-
-
 window.onscroll = function(ev){
     if((window.innerHeight + window.scrollY) > document.body.scrollHeight) {
         return;
@@ -43,7 +32,7 @@ function requestPhotos(){
 
     if(limitReached){return;}
 
-    xml.open("GET", "./getphotos?add={0}&current={1}".format(photosToAdd, photoCount));
+    xml.open("GET", `./getphotos?add=${photosToAdd}&current=${photoCount}`));
     xml.send();
 }
 
