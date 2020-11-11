@@ -48,6 +48,6 @@ module.exports = {
             finalString.push(photoURL);
         }
 
-        return finalString.join(',');
+        return JSON.stringify(finalString);
     },
 }

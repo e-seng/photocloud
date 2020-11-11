@@ -39,7 +39,7 @@ function requestPhotos(){
             return;
         }
         if(photoArray.includes(xml.responseText)){return;}
-		let photos = xml.responseText.split(",");
+		let photos = JSON.parse(xml.responseText);
 		photos.forEach(function(photo){
 			appendPhoto(photo);
 		});

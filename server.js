@@ -14,13 +14,13 @@ function getFileType(request){
 }
 
 function error404(response){
-    response.writeHead(404, {"ContentType" : "text/plain"});
+    response.writeHead(404, {"Content-Type" : "text/plain"});
     response.write("Error 404: That path does not seem to exist");
     response.end();
 }
 
 function error500(response){
-    response.writeHead(500, {"ContentType" : "text/plain"});
+    response.writeHead(500, {"Content-Type" : "text/plain"});
     response.write("Error 500: Something went wrong with the server");
     response.end();
 }
@@ -36,7 +36,7 @@ function getIndex(response){
         return;
     }
 
-    response.writeHead(200, {"ContentType" : "text/html"});
+    response.writeHead(200, {"Content-Type" : "text/html"});
     response.write(data);
     response.end();
 }
@@ -52,7 +52,7 @@ function getCheckFile(response){
         return;
     }
 
-    response.writeHead(200, {"ContentType" : "text/javascript"});
+    response.writeHead(200, {"Content-Type" : "text/javascript"});
     response.write(data);
     response.end();
 }
@@ -68,7 +68,7 @@ function getStyles(response){
         return;
     }
 
-    response.writeHead(200, {"ContentType" : "text/css"});
+    response.writeHead(200, {"Content-Type" : "text/css"});
     response.write(data);
     response.end();
     return;
@@ -92,7 +92,7 @@ function getImage(request, response){
         return;
     }
 
-    response.writeHead(200, {"ContentType" : `image/${filetype}`});
+    response.writeHead(200, {"Content-Type" : `image/${filetype}`});
     response.write(data);
     response.end();
 
@@ -105,7 +105,7 @@ function getPhotos(request, response){
     let currentCount = parseInt(urlParts[3]);
 
     let newPhotos = manager.getFiles(desiredAmount, currentCount);
-    response.writeHead(200, {"ContentType" : `text/plain`});
+    response.writeHead(200, {"Content-Type" : `application/json`});
     response.write(newPhotos);
     response.end();
 
