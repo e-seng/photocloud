@@ -3,3 +3,6 @@
 ./stockimages/stock4.jpg
 ./stockimages/stock3.jpg
 ./stockimages/stock5.jpg
+./stockimages/stock6.jpg
+./stockimages/stock7.jpg
+./stockimages/stock8.jpg

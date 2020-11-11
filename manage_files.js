@@ -41,7 +41,10 @@ module.exports = {
 
         for(let counter = 0; counter < desiredAmount; counter++){
             let index = currentCount + counter;
-            if(index >= limit){return JSON.stringify("end");}
+            if(index >= limit){
+				finalString.push("end");
+				break;
+			}
 
             let photoURL = existingFiles[index];
             console.log(photoURL)

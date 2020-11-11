@@ -13,6 +13,13 @@ window.onscroll = function(ev){
 //document.getElementById("").innerHTML = "";
 
 function appendPhoto(photoPath){
+	// Check for the end of the photostream
+	if(photoPath === "end"){
+		limitReached = true;
+		console.log("oh no");
+		return;
+	}
+
 	//Prevent duplicate photos
 	if(photoArray.includes(photoPath)){return;}
 	photoArray.push(photoPath);
@@ -35,12 +42,13 @@ function requestPhotos(){
     xml.onreadystatechange = function(){        
         if(this.readyState !== 4 && this.status !== 200){return;}
         if(xml.responseText.length == 3 || !xml.responseText.length){
-            limitReached = true;
+            //limitReached = true;
             return;
         }
         if(photoArray.includes(xml.responseText)){return;}
 		let photos = JSON.parse(xml.responseText);
 		photos.forEach(function(photo){
+			if(limitReached){return;}
 			appendPhoto(photo);
 		});
     }
