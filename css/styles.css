@@ -3,19 +3,29 @@
 	font-size: 15px;
 
 	--background: #424242;
-	--banner-background: #d3d3d3;
+	--banner-background: #d3d3f3;
 }
 
 body{
     margin: 0;
     background: var(--background);
     height: 100%;
-    width: 100%;
+	width: 100%;
+}
+
+nav{
+	position: fixed;
+	top: 0;
+	width: 100vw;
+	background-color: var(--banner-background);
+	z-index: 1;
 }
 
 #title{
+	position: relative;
     height: 50vh;
     background-color: var(--banner-background);
+	z-index: 2;
 }
 
 #title h1{
