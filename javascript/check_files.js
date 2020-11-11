@@ -1,5 +1,4 @@
 // Checks for and populates the website with photos found within the local directory
-var photo_count;
 var limitReached = false;
 var photoArray = [];
 const photosToAdd = 5;
@@ -10,10 +9,25 @@ window.onscroll = function(ev){
     }
     requestPhotos();
 }
+
 //document.getElementById("").innerHTML = "";
 
+function appendPhoto(photoPath){
+	//Prevent duplicate photos
+	if(photoArray.includes(photoPath)){return;}
+	photoArray.push(photoPath);
+	
+	let newPhoto = document.createElement("img");
+	newPhoto.classList.add("photo");
+	newPhoto.src = photoPath;
+
+	let photoWrapper = document.querySelector("#photos");
+
+	photoWrapper.appendChild(newPhoto);
+}
+
 function requestPhotos(){
-    photoCount = document.querySelectorAll(".photo").length;
+    let photoCount = document.querySelectorAll(".photo").length;
     
     // Call for the next photos to be loaded
     var xml = new XMLHttpRequest();
@@ -25,14 +39,15 @@ function requestPhotos(){
             return;
         }
         if(photoArray.includes(xml.responseText)){return;}
-        console.log(xml.responseText.length);
-        photoArray.push(xml.responseText);
-        updatePage();
+		let photos = xml.responseText.split(",");
+		photos.forEach(function(photo){
+			appendPhoto(photo);
+		});
     }
 
     if(limitReached){return;}
 
-    xml.open("GET", `./getphotos?add=${photosToAdd}&current=${photoCount}`));
+    xml.open("GET", `./getphotos?add=${photosToAdd}&current=${photoCount}`);
     xml.send();
 }
 

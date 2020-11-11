@@ -5,7 +5,7 @@ const path = require("path");
 
 const manager = require("./manage_files.js")
 
-const PORT = 80;
+const PORT = 9000;
 const ROOT_DIR = process.cwd(); // this should be altered in deployment
 
 function getFileType(request){
@@ -103,10 +103,9 @@ function getPhotos(request, response){
     let urlParts = request.url.split(/[=&]/);
     let desiredAmount = parseInt(urlParts[1]);
     let currentCount = parseInt(urlParts[3]);
-    let filetype = getFileType(request);
 
     let newPhotos = manager.getFiles(desiredAmount, currentCount);
-    response.writeHead(200, {"ContentType" : `image/${filetype}`});
+    response.writeHead(200, {"ContentType" : `text/plain`});
     response.write(newPhotos);
     response.end();
 

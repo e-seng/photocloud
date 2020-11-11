@@ -45,10 +45,9 @@ module.exports = {
 
             let photoURL = existingFiles[index];
             console.log(photoURL)
-            finalString.push(`<img src=\"${photoURL}\" class=\"photo\" />`);
+            finalString.push(photoURL);
         }
 
-        finalString.push("\n");
-        return finalString.join('');
+        return finalString.join(',');
     },
 }
