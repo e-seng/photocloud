@@ -2,6 +2,7 @@
 const fs = require("fs");
 const http = require("http");
 const path = require("path");
+const exifp = require("exif-parser");
 
 const manager = require("./manage_files.js")
 
@@ -110,6 +111,10 @@ function getPhotos(request, response){
     response.end();
 
     return;
+}
+
+function recieveFile(request, response){
+	
 }
 
 function onRequest(request, response){

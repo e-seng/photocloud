@@ -3,3 +3,6 @@
 
 # Ignore the large folder which I use for testing at home
 WhatsApp_Images\/*
+
+# Do not save node_modules for cleanliness
+node_modules/
