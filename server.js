@@ -114,6 +114,19 @@ function getPhotos(request, response){
 }
 
 function recieveFile(request, response){
+	let tmpDir = path.join(ROOT_DIR, "tmp");
+	if(!fs.existsSync(tmpDir)){fs.mkdirSync(tmpDir);}
+
+	let buffer = "";
+	
+	request.on("data", chunk => {buffer += chunk});
+	request.on("end", () => {
+		console.log(buffer);
+
+		response.writeHead(200, {"Content-Type" : "text/plain"});
+		response.write("photo recieved");
+		response.end();
+	});
 	
 }
 
@@ -136,6 +149,8 @@ function onRequest(request, response){
         getCheckFile(response);
     }else if(request.method == "GET" && request.url.split("?")[0] == "/getphotos"){
         getPhotos(request, response);
+	}else if(request.method == "POST" && request.url === "/photoupload"){
+		recieveFile(request, response);
     }else{
         error404(response);
     }
