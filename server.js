@@ -3,6 +3,7 @@ const fs = require("fs");
 const http = require("http");
 const path = require("path");
 const exifp = require("exif-parser");
+const qs = require("querystring");
 
 const manager = require("./manage_files.js")
 
@@ -119,13 +120,35 @@ function recieveFile(request, response){
 
 	let buffer = "";
 	
-	request.on("data", chunk => {buffer += chunk});
+	request.on("data", chunk => {
+		buffer += chunk;
+	});
 	request.on("end", () => {
-		console.log(buffer);
+		// console.log(buffer);
+		let fileInfo = JSON.parse(buffer);
+		
+		try{
+			let filepath = path.join(tmpDir, fileInfo.name);
+			//let data = fileInfo.data.replace(/^data:image\/\w+;base64,/, "");
+			//let binaryBuffer = Buffer.from(fileInfo.data);
+			fs.writeFileSync(filepath, fileInfo.data);
+			// TODO : Figure out how binary buffers should work, because
+			// 		  currently only writing the data in ascii
 
-		response.writeHead(200, {"Content-Type" : "text/plain"});
-		response.write("photo recieved");
-		response.end();
+
+			// TODO : Move photo into relevant nested folder
+			// use time: <root>/<year>/<month>/<day>/file.ext
+			// time info given in epoch within fileInfo.lastModified
+
+			response.writeHead(200, {"Content-Type" : "text/plain"});
+			response.write("photo recieved");
+			response.end();
+		}catch(err){
+			response.writeHead(500, {"Content-Type" : "text/plain"});
+			response.write(`Server side error : ${err}`);
+			console.log(`Error: ${err}`);
+			response.end();
+		}
 	});
 	
 }
