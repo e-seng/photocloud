@@ -42,6 +42,7 @@ function requestPhotos(){
     xml.onreadystatechange = function(){        
         if(this.readyState !== 4 && this.status !== 200){return;}
         if(photoArray.includes(xml.responseText)){return;}
+		if(!xml.responseText){return;}
 		let photos = JSON.parse(xml.responseText);
 		photos.forEach(function(photo){
 			if(limitReached){return;}
