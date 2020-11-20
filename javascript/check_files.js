@@ -39,13 +39,13 @@ function init(){
 	    let photoCount = document.querySelectorAll(".photo").length;
     
     	// Call for the next photos to be loaded
-	    var xml = new XMLHttpRequest();
+	    const XML = new XMLHttpRequest();
 
-    	xml.onreadystatechange = function(){        
+    	XML.onreadystatechange = function(){
         	if(this.readyState !== 4 && this.status !== 200){return;}
-	        if(photoArray.includes(xml.responseText)){return;}
-			if(!xml.responseText){return;}
-			let photos = JSON.parse(xml.responseText);
+	        if(photoArray.includes(XML.responseText)){return;}
+			if(!XML.responseText){return;}
+			let photos = JSON.parse(XML.responseText);
 			photos.forEach(function(photo){
 				if(limitReached){return;}
 				appendPhoto(photo);
@@ -54,8 +54,8 @@ function init(){
 
 	    if(limitReached){return;}
 
-	    xml.open("GET", `./getphotos?add=${photosToAdd}&current=${photoCount}`);
-    	xml.send();
+	    XML.open("GET", `./getphotos?add=${photosToAdd}&current=${photoCount}`);
+    	XML.send();
 	}
 
 	function updatePage(){
@@ -69,9 +69,12 @@ function init(){
 
     	document.getElementById("photos").innerHTML = collectedPhotos;
 
-	    limitReached = !photoArray.length;
-    
+	    limitReached = !photoArray.length; 
 	}
+
+    function uploadFile(file){
+       //  
+    }
 }
 
 window.addEventListener("load", () => init());
