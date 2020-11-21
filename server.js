@@ -128,10 +128,18 @@ function recieveFile(request, response){
 		let fileInfo = JSON.parse(buffer);
 		
 		try{
-			let filepath = path.join(tmpDir, fileInfo.name);
-			//let data = fileInfo.data.replace(/^data:image\/\w+;base64,/, "");
-			//let binaryBuffer = Buffer.from(fileInfo.data);
-			fs.writeFileSync(filepath, fileInfo.data);
+			// let filepath = path.join(tmpDir, fileInfo.name);
+            let filepath = path.join(tmpDir, "test_file.png");
+            let binaryArr = [];
+            // Save all bytes from the file stream to convert back into an image
+            for(let index in Object.keys(fileInfo.data)){
+                console.log(fileInfo.data[index]);
+                binaryArr.push(fileInfo.data[index]);
+            }
+
+			let binaryBuffer = Buffer.from(binaryArr);
+            console.log("bonk");
+            fs.writeFileSync(filepath, binaryBuffer);
 			// TODO : Figure out how binary buffers should work, because
 			// 		  currently only writing the data in ascii
 
