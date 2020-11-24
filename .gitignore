@@ -8,4 +8,4 @@ WhatsApp_Images\/*
 node_modules/
 
 # Ignore any cached photos
-tmp/
+/tmp
