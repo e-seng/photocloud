@@ -73,8 +73,25 @@ function init(){
 	}
 
     function uploadFile(file){
-       //  
+        const fr = new FileReader();
+        const XHR = new XMLHttpRequest();
+
+        let stream = {};
+        stream.name = file.name;
+        stream.lastModified = file.lastModified;
+
+        fr.onloadend = function(data){
+            let data = new Uint8Array(fr.result);
+            stream.data = data;
+
+            XHR.open("POST", "/photoupload");
+            XHR.send(JSON.stringify(stream))
+        }
     }
+    
+    let submit = document.querySelector("input[type=submit]");
+    let file = document.querySelector("input[type=file]").files[0];
+    submit.addEventListener("load", () => uploadFile(file))
 }
 
 window.addEventListener("load", () => init());
