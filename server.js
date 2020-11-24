@@ -128,8 +128,8 @@ function recieveFile(request, response){
 		let fileInfo = JSON.parse(buffer);
 		
 		try{
-			// let filepath = path.join(tmpDir, fileInfo.name);
-            let filepath = path.join(tmpDir, "test_file.png");
+			let filepath = path.join(tmpDir, fileInfo.name);
+            //let filepath = path.join(tmpDir, "test_file.png");
             let binaryArr = [];
             // Save all bytes from the file stream to convert back into an image
             for(let index in Object.keys(fileInfo.data)){
@@ -140,9 +140,6 @@ function recieveFile(request, response){
 			let binaryBuffer = Buffer.from(binaryArr);
             console.log("bonk");
             fs.writeFileSync(filepath, binaryBuffer);
-			// TODO : Figure out how binary buffers should work, because
-			// 		  currently only writing the data in ascii
-
 
 			// TODO : Move photo into relevant nested folder
 			// use time: <root>/<year>/<month>/<day>/file.ext
