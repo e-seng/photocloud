@@ -39,13 +39,13 @@ function init(){
 	    let photoCount = document.querySelectorAll(".photo").length;
     
     	// Call for the next photos to be loaded
-	    const XML = new XMLHttpRequest();
+	    const XHR = new XMLHttpRequest();
 
-    	XML.onreadystatechange = function(){
+        XHR.onreadystatechange = function(){
         	if(this.readyState !== 4 && this.status !== 200){return;}
-	        if(photoArray.includes(XML.responseText)){return;}
-			if(!XML.responseText){return;}
-			let photos = JSON.parse(XML.responseText);
+	        if(photoArray.includes(XHR.responseText)){return;}
+			if(!XHR.responseText){return;}
+			let photos = JSON.parse(XHR.responseText);
 			photos.forEach(function(photo){
 				if(limitReached){return;}
 				appendPhoto(photo);
@@ -54,8 +54,8 @@ function init(){
 
 	    if(limitReached){return;}
 
-	    XML.open("GET", `./getphotos?add=${photosToAdd}&current=${photoCount}`);
-    	XML.send();
+	    XHR.open("GET", `./getphotos?add=${photosToAdd}&current=${photoCount}`);
+        XHR.send();
 	}
 
 	function updatePage(){
