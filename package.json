@@ -1,0 +1,31 @@
+{
+  "name": "gallery",
+  "version": "0.1.0",
+  "description": "A simple photo server",
+  "main": "server.js",
+  "dependencies": {
+    "exif-parser": "^0.1.12",
+    "formidable": "^1.2.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/e-seng/photocloud.git"
+  },
+  "keywords": [
+    "server",
+    "photos",
+    "cloud",
+    "local"
+  ],
+  "author": "petiole",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/e-seng/photocloud/issues"
+  },
+  "homepage": "https://github.com/e-seng/photocloud#readme"
+}

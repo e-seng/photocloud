@@ -6,3 +6,6 @@ WhatsApp_Images\/*
 
 # Do not save node_modules for cleanliness
 node_modules/
+
+# Ignore any cached photos
+tmp/
