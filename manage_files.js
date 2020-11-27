@@ -1,5 +1,6 @@
 // This file should be included in the server to update the photos.txt file
-var fs = require("fs");
+const fs = require("fs");
+const path = require("path");
 
 const DIRECTORIES = ["./stockimages/",]
 
