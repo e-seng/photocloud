@@ -81,6 +81,8 @@ module.exports = {
                 binaryArr.push(fileJSON.data[index]);
             }
 
+            // Place the file within several nested folders, organized as:
+            // ROOT_DIR/year/month/day/photo.ext
             let photoDate = new Date(fileJSON.lastModified);
             let dateParts = photoDate.toISOString().split('T')[0].split('-');
 

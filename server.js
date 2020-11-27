@@ -2,7 +2,6 @@
 const fs = require("fs");
 const http = require("http");
 const path = require("path");
-const exifp = require("exif-parser");
 const qs = require("querystring");
 
 const manager = require("./manage_files.js")
@@ -102,9 +101,9 @@ function getImage(request, response){
 }
 
 function getPhotos(request, response){
-    let urlParts = request.url.split(/[=&]/);
-    let desiredAmount = parseInt(urlParts[1]);
-    let currentCount = parseInt(urlParts[3]);
+    let queryParts = qs.parse(request.url.split('?')[1]);
+    let desiredAmount = parseInt(queryParts["add"]);
+    let currentCount = parseInt(queryParts["current"]);
 
     let newPhotos = manager.getFiles(desiredAmount, currentCount);
     response.writeHead(200, {"Content-Type" : `application/json`});
@@ -137,8 +136,7 @@ function recieveFile(request, response){
 			console.log(`Error: ${err}`);
 			response.end();
         }
-	});
-	
+	});	
 }
 
 function onRequest(request, response){
@@ -150,7 +148,7 @@ function onRequest(request, response){
     console.log(`${ip} made a ${request.method} request to ${request.url}`);
 
     if(request.method == "GET" && request.url == "/"){
-        manager.updateTxt();
+        // manager.updateTxt();
         getIndex(response);
     }else if(request.method == "GET" && request.url == "/styles.css"){
         getStyles(response);
