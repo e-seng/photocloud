@@ -80,7 +80,7 @@ function init(){
         stream.name = file.name;
         stream.lastModified = file.lastModified;
 
-        fr.onloadend = function(data){
+        fr.onloadend = function(dump){
             let data = new Uint8Array(fr.result);
             stream.data = data;
 
