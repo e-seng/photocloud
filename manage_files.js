@@ -71,14 +71,20 @@ module.exports = {
                 binaryArr.push(fileJSON.data[index]);
             }
 
-            let photoDate = new Date(fileJSON.lastModified * 1000);
+            let photoDate = new Date(fileJSON.lastModified);
+            let dateParts = photoDate.toISOString().split('T')[0].split('-');
 
-            let filepath = path.join(ROOT_DIR,
-                                     photoDate.getFullYear(),
-                                     photoDate.getMonth() + 1,
-                                     photoDate.getDate(),
-                                     fileJSON.name
-            );
+            let folderNest = ROOT_DIR;
+
+            dateParts.forEach(function(part){
+                folderNest = path.join(folderNest, part);
+
+                if(!fs.existsSync(folderNest)){
+                    fs.mkdirSync(folderNest);
+                }
+            });
+
+            let filepath = path.join(folderNest, fileJSON.name);
 
 			let binaryBuffer = Buffer.from(binaryArr);
             console.log("bonk");
