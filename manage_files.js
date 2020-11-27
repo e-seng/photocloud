@@ -11,7 +11,7 @@ function getFileNames(){
         
         filenames.forEach(function(file){
             if(file[0] == "."){return;}
-            let filepath = `${dir}${file}\n`;
+            let filepath = `${dir}${file}`;
             files.push(filepath);
         });
     });
@@ -32,9 +32,9 @@ module.exports = {
 
         files.forEach(function(file){
             file = file.toString();
-            if(existing_files.includes(file.split("\n")[0])){return;}
+            if(existing_files.includes(file)){return;}
             
-            fs.appendFile(FILE_NAME, file, function(err){
+            fs.appendFile(FILE_NAME, `${file}\n`, function(err){
                 if(err) throw err;
             });   
         });
