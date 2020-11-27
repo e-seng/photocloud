@@ -102,7 +102,7 @@ function getImage(request, response){
 
 function getPhotos(request, response){
     let queryParts = qs.parse(request.url.split('?')[1]);
-    let desiredAmount = parseInt(queryParts["add"]);
+    let desiredAmount = 5; // Enforce that up-to 5 photos are streamed at a time
     let currentCount = parseInt(queryParts["current"]);
 
     let newPhotos = manager.getFiles(desiredAmount, currentCount);

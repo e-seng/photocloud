@@ -2,13 +2,19 @@
 
 function init(){
 	var limitReached = false;
+    var queryPhoto = false; // set this to be true if photos are being queried
 	var photoArray = [];
-	const photosToAdd = 5;
+
+    // Get current date, so data can be pulled starting from here.
+    var photoDate = new Date();
+    // Remove any data more precise than the date
+    photoDate = new Date(photoDate.toLocaleDateString());
 
 	window.onscroll = function(ev){
-    	if((window.innerHeight + window.scrollY) > document.body.scrollHeight) {
+    	if((window.innerHeight + window.scrollY) > document.body.scrollHeight){
         	return;
 	    }
+        if(queryPhoto){return;} // Don't add traffic if a request is prev. made
     	requestPhotos();
 	}
 
@@ -35,8 +41,10 @@ function init(){
 		photoWrapper.appendChild(newPhoto);
 	}
 
+    /* This is the old requestPhotos function
 	function requestPhotos(){
 	    let photoCount = document.querySelectorAll(".photo").length;
+        const photosToAdd = 5;
     
     	// Call for the next photos to be loaded
 	    const XHR = new XMLHttpRequest();
@@ -56,7 +64,33 @@ function init(){
 
 	    XHR.open("GET", `./getphotos?add=${photosToAdd}&current=${photoCount}`);
         XHR.send();
-	}
+	} // */
+
+    function requestPhotos(){
+        let date = photoDate.getTime();
+        let photoCount = document.querySelectorAll(".photo").length;
+        //let photoCount = document.querySelectorAll(`.${date}`).length;
+
+        // Create XHR to call new photos
+        const XHR = new XMLHttpRequest();
+        
+        XHR.onreadystatechange = function(){
+            if(XHR.readyState !== 4 && this.status !== 200){return;}
+            if(!XHR.responseText){return;}
+            queryPhoto = false;
+            let photos = JSON.parse(XHR.responseText);
+            
+            photos.forEach(function(photo){
+                if(limitReached){return;}
+                appendPhoto(photo);
+            });
+        }
+
+        if(limitReached){return;}
+        XHR.open("GET", `./getphotos?current=${photoCount}&date=${date}`);
+        XHR.send();
+        queryPhoto = true;
+    }
 
 	function updatePage(){
     	var collectedPhotos = "";

@@ -84,7 +84,7 @@ module.exports = {
             // Place the file within several nested folders, organized as:
             // ROOT_DIR/year/month/day/photo.ext
             let photoDate = new Date(fileJSON.lastModified);
-            let dateParts = photoDate.toISOString().split('T')[0].split('-');
+            let dateParts = photoDate.toLocaleDateString().split('/');
 
             let folderNest = ROOT_DIR;
 
