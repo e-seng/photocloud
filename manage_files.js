@@ -20,15 +20,21 @@ function getFileNames(){
 
 module.exports = {
     updateTxt: function updateTxt(){
+        const FILE_NAME = "photo_list.txt";
+
+        if(!fs.existsSync(FILE_NAME)){
+            // Create a blank file, which photos can be written to
+            fs.writeFileSync(FILE_NAME, "");
+        }
 
         let files = getFileNames();
-        let existing_files = fs.readFileSync("photo_list.txt", "utf-8").split("\n");
+        let existing_files = fs.readFileSync(FILE_NAME, "utf-8").split("\n");
 
         files.forEach(function(file){
             file = file.toString();
             if(existing_files.includes(file.split("\n")[0])){return;}
             
-            fs.appendFile("./photo_list.txt", file, function(err){
+            fs.appendFile(FILE_NAME, file, function(err){
                 if(err) throw err;
             });   
         });
