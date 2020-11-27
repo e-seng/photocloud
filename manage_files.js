@@ -51,7 +51,7 @@ module.exports = {
         });
     },
 
-    getFiles: function getFiles(desiredAmount, currentCount){
+    getFilesLegacy: function getFilesLegacy(desiredAmount, currentCount){
         let existingFiles = fs.readFileSync("photo_list.txt", "utf-8").split("\n");
         let limit = existingFiles.length - 1;
         let finalString = [];

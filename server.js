@@ -105,7 +105,7 @@ function getPhotos(request, response){
     let desiredAmount = 5; // Enforce that up-to 5 photos are streamed at a time
     let currentCount = parseInt(queryParts["current"]);
 
-    let newPhotos = manager.getFiles(desiredAmount, currentCount);
+    let newPhotos = manager.getFilesLegacy(desiredAmount, currentCount);
     response.writeHead(200, {"Content-Type" : `application/json`});
     response.write(newPhotos);
     response.end();
