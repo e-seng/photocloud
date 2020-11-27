@@ -125,35 +125,18 @@ function recieveFile(request, response){
 	});
 	request.on("end", () => {
 		// console.log(buffer);
-		let fileInfo = JSON.parse(buffer);
-		
-		try{
-			let filepath = path.join(tmpDir, fileInfo.name);
-            //let filepath = path.join(tmpDir, "test_file.png");
-            let binaryArr = [];
-            // Save all bytes from the file stream to convert back into an image
-            for(let index in Object.keys(fileInfo.data)){
-                console.log(fileInfo.data[index]);
-                binaryArr.push(fileInfo.data[index]);
-            }
-
-			let binaryBuffer = Buffer.from(binaryArr);
-            console.log("bonk");
-            fs.writeFileSync(filepath, binaryBuffer);
-
-			// TODO : Move photo into relevant nested folder
-			// use time: <root>/<year>/<month>/<day>/file.ext
-			// time info given in epoch within fileInfo.lastModified
-
+		let fileJSON = JSON.parse(buffer);
+        try{
+	        manager.saveFile(fileJSON);
 			response.writeHead(200, {"Content-Type" : "text/plain"});
 			response.write("photo recieved");
 			response.end();
-		}catch(err){
+        }catch(err){ 
 			response.writeHead(500, {"Content-Type" : "text/plain"});
 			response.write(`Server side error : ${err}`);
 			console.log(`Error: ${err}`);
 			response.end();
-		}
+        }
 	});
 	
 }

@@ -86,12 +86,20 @@ function init(){
 
             XHR.open("POST", "/photoupload");
             XHR.send(JSON.stringify(stream))
+            console.log("photo uploaded");
         }
+
+        fr.readAsArrayBuffer(file);
     }
     
-    let submit = document.querySelector("input[type=submit]");
+    // let submit = document.querySelector("input[type=submit]");
+    let form = document.querySelector("form");
     let file = document.querySelector("input[type=file]").files[0];
-    submit.addEventListener("load", () => uploadFile(file))
+    form.addEventListener("submit", function(event){
+        event.preventDefault();
+        uploadFile(file);
+        console.log(" good");
+    });
 }
 
 window.addEventListener("load", () => init());

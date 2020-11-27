@@ -60,4 +60,36 @@ module.exports = {
 
         return JSON.stringify(finalString);
     },
+
+    saveFile: function saveFile(fileJSON){
+        try{
+			// let filepath = path.join(tmpDir, fileJSON.name);
+            // let filepath = path.join(tmpDir, "test_file.png");
+            let binaryArr = [];
+            // Save all bytes from the file stream to convert back into an image
+            for(let index in Object.keys(fileJSON.data)){
+                binaryArr.push(fileJSON.data[index]);
+            }
+
+            let photoDate = new Date(fileJSON.lastModified * 1000);
+
+            let filepath = path.join(ROOT_DIR,
+                                     photoDate.getFullYear(),
+                                     photoDate.getMonth() + 1,
+                                     photoDate.getDate(),
+                                     fileJSON.name
+            );
+
+			let binaryBuffer = Buffer.from(binaryArr);
+            console.log("bonk");
+            fs.writeFileSync(filepath, binaryBuffer);
+
+			// TODO : Move photo into relevant nested folder
+			// use time: <root>/<year>/<month>/<day>/file.ext
+			// time info given in epoch within fileInfo.lastModified
+
+		}catch(err){
+            throw err;
+		}
+    }
 }
