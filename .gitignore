@@ -9,3 +9,6 @@ node_modules/
 
 # Ignore any cached photos
 /tmp
+
+# Ignore photo_list.txt for privacy things
+photo_list.txt
