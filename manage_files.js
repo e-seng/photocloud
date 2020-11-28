@@ -73,8 +73,9 @@ module.exports = {
 
     saveFile: function saveFile(fileJSON){
         try{
-			// let filepath = path.join(tmpDir, fileJSON.name);
-            // let filepath = path.join(tmpDir, "test_file.png");
+			// Check if the photo directory exists, create it if not
+            if(!fs.existsSync(ROOT_DIR)) fs.mkdirSync(ROOT_DIR);
+
             let binaryArr = [];
             // Save all bytes from the file stream to convert back into an image
             for(let index in Object.keys(fileJSON.data)){
