@@ -23,12 +23,17 @@ updateTxt: function updateTxt(){
     }
 
     let years = fs.readdirSync(ROOT_DIR);
-    let existing_years = fs.readFileSync(FILE_NAME, "utf-8").split("\n");
-    years.forEach(year => existing_years.push(year));
+    let existingYears = fs.readFileSync(FILE_NAME, "utf-8").split("\n");
+    years.forEach(year => {
+        if(existingYears.includes(year)) return;
+        existingYears.push(year)
+    });
     // Make the most recent year first
-    years.sort((a, b) => {return b - a});
+    existingYears.sort((a, b) => {return b - a});
+    // Remove any empty elements
+    existingYears.filter((element) => {return !!element;});
 
-    fs.writeFileSync(FILE_NAME, existing_years.join('\n'));
+    fs.writeFileSync(FILE_NAME, existingYears.join('\n'));
 }
 
 module.exports = {
