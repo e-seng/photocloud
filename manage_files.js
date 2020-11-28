@@ -14,43 +14,24 @@ const ROOT_DIR = "./photos/";
 // This should be the directory where new uploaded files are written to.
 // Files are also read from here when viewing
 
-function getFileNames(){
-    let files = [];
-    DIRECTORIES.forEach(function(dir){
-        if(!fs.existsSync(dir)){return;}
-        filenames = fs.readdirSync(dir);
-        
-        filenames.forEach(function(file){
-            if(file[0] == "."){return;}
-            let filepath = `${dir}${file}`;
-            files.push(filepath);
-        });
-    });
-    return files;
+updateTxt: function updateTxt(){
+    const FILE_NAME = "year_list.txt";
+
+    if(!fs.existsSync(FILE_NAME)){
+        // Create a blank file, which photos can be written to
+        fs.writeFileSync(FILE_NAME, "");
+    }
+
+    let years = fs.readdirSync(ROOT_DIR);
+    let existing_years = fs.readFileSync(FILE_NAME, "utf-8").split("\n");
+    years.forEach(year => existing_years.push(year));
+    // Make the most recent year first
+    years.sort((a, b) => {return b - a});
+
+    fs.writeFileSync(FILE_NAME, existing_years.join('\n'));
 }
 
 module.exports = {
-    updateTxt: function updateTxt(){
-        const FILE_NAME = "photo_list.txt";
-
-        if(!fs.existsSync(FILE_NAME)){
-            // Create a blank file, which photos can be written to
-            fs.writeFileSync(FILE_NAME, "");
-        }
-
-        let files = getFileNames();
-        let existing_files = fs.readFileSync(FILE_NAME, "utf-8").split("\n");
-
-        files.forEach(function(file){
-            file = file.toString();
-            if(existing_files.includes(file)){return;}
-            
-            fs.appendFile(FILE_NAME, `${file}\n`, function(err){
-                if(err) throw err;
-            });   
-        });
-    },
-
     getFilesLegacy: function getFilesLegacy(desiredAmount, currentCount){
         let existingFiles = fs.readFileSync("photo_list.txt", "utf-8").split("\n");
         let limit = existingFiles.length - 1;
@@ -59,7 +40,7 @@ module.exports = {
         for(let counter = 0; counter < desiredAmount; counter++){
             let index = currentCount + counter;
             if(index >= limit){
-				finalString.push("end");
+				finalString.push("file-end");
 				break;
 			}
 
@@ -73,6 +54,12 @@ module.exports = {
 
     getFiles: function getFiles(currentAmount, requestedEpoch){
         const DESIRED_AMOUNT = 5;
+        const FILE_NAME = "year_list.txt";
+
+        if(!fs.existsSync(FILE_NAME)) fs.writeFileSync(FILE_NAME, "");
+        let existingYears = fs.readFileSync("year_list.txt", "utf-8").split('\n');
+        let finalYear = existingYears.slice(-1)[0];
+
         let dateExists = false;
         let responseObj = {"date" : requestedEpoch, "photos" : []};
         let folderNest;
@@ -82,18 +69,29 @@ module.exports = {
             let date = new Date(requestedEpoch);
             let dateParts = date.toISOString().split('T')[0].split('-');
 
+            // If no saved data, return
+            if(!existingYears){
+                responseObj.push("no-photos");
+                return responseObj;
+            }
+
             // Prevent an infinite loop if no files are found
-            // ie. this loops until the year hits 1970, where it is unlikely
-            //     any photos are created during that time
-            if(date.getFullYear() === 1970){
+            // ie. this loops until the year is less than the last existing year
+            if(date.getFullYear() < finalYear || requestedEpoch < 0){
                 responseObj.photos.push("file-end");
                 return responseObj;
+            }
+
+            // If year does not have any photos, skip
+            if(!existingYears.includes(date.getFullYear().toString())){
+                let lastYear = `12/31/${date.getFullYear() - 1}`;
+                requestedEpoch = new Date(lastYear).getTime();
+                continue;
             }
 
             // Use Array.prototype.every() instead of .forEach();
             dateExists = dateParts.every(function(part){
                 folderNest = path.join(folderNest, part);
-                console.log(folderNest);
                 return fs.existsSync(folderNest);
             });
 
@@ -133,7 +131,7 @@ module.exports = {
             // Place the file within several nested folders, organized as:
             // ROOT_DIR/year/month/day/photo.ext
             let photoDate = new Date(fileJSON.lastModified);
-            let dateParts = photoDate.toLocaleDateString().split('/');
+            let dateParts = photoDate.toISOString().split('T')[0].split('-');
 
             let folderNest = ROOT_DIR;
 
@@ -150,6 +148,8 @@ module.exports = {
 			let binaryBuffer = Buffer.from(binaryArr);
             console.log("bonk");
             fs.writeFileSync(filepath, binaryBuffer);
+
+            updateTxt();
 
 			// TODO : Move photo into relevant nested folder
 			// use time: <root>/<year>/<month>/<day>/file.ext
