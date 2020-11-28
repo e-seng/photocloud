@@ -20,7 +20,17 @@ function init(){
 
 	//document.getElementById("").innerHTML = "";
 
-	function appendPhoto(photoPath){
+    function numToLet(number){
+        let numArray = Array.from(number.toString());
+        numArray = numArray.map(Number);
+        let finalString = "";
+
+        numArray.forEach((num) => finalString += String.fromCharCode(num+97));
+
+        return finalString;
+    }
+
+	function appendPhoto(photoPath, requestDate){
 		// Check for the end of the photostream
 		if(photoPath === "end"){
 			limitReached = true;
@@ -34,6 +44,7 @@ function init(){
 	
 		let newPhoto = document.createElement("img");
 		newPhoto.classList.add("photo");
+        newPhoto.classList.add(numToLet(requestDate));
 		newPhoto.src = photoPath;
 
 		let photoWrapper = document.querySelector("#photos");
