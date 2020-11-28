@@ -6,9 +6,9 @@ function init(){
 	var photoArray = [];
 
     // Get current date, so data can be pulled starting from here.
-    var photoDate = new Date();
+    var reqDate = new Date();
     // Remove any data more precise than the date
-    photoDate = new Date(photoDate.toLocaleDateString());
+    reqDate = new Date(reqDate.toLocaleDateString());
 
 	window.onscroll = function(ev){
     	if((window.innerHeight + window.scrollY) > document.body.scrollHeight){
@@ -67,7 +67,7 @@ function init(){
 	} // */
 
     function requestPhotos(){
-        let date = photoDate.getTime();
+        let date = reqDate.getTime();
         let photoCount = document.querySelectorAll(".photo").length;
         //let photoCount = document.querySelectorAll(`.${date}`).length;
 
@@ -78,9 +78,11 @@ function init(){
             if(XHR.readyState !== 4 && this.status !== 200){return;}
             if(!XHR.responseText){return;}
             queryPhoto = false;
-            let photos = JSON.parse(XHR.responseText);
+            let response = JSON.parse(XHR.responseText);
+            console.log(response);
             
-            photos.forEach(function(photo){
+            reqDate = new Date(response.date);
+            response.photos.forEach(function(photo){
                 if(limitReached){return;}
                 appendPhoto(photo);
             });

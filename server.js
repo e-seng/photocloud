@@ -100,7 +100,7 @@ function getImage(request, response){
     return;
 }
 
-function getPhotos(request, response){
+function getPhotosLegacy(request, response){
     let queryParts = qs.parse(request.url.split('?')[1]);
     let desiredAmount = 5; // Enforce that up-to 5 photos are streamed at a time
     let currentCount = parseInt(queryParts["current"]);
@@ -111,6 +111,18 @@ function getPhotos(request, response){
     response.end();
 
     return;
+}
+
+function getPhotos(request, response){
+    let queryParts = qs.parse(request.url.split('?')[1]);
+    let currentAmount = parseInt(queryParts["current"]);
+    let reqEpoch = parseInt(queryParts["date"]);
+
+    let responseObj = manager.getFiles(currentAmount, reqEpoch);
+    let responseBody = JSON.stringify(responseObj);
+    response.writeHead(200, {"Content-Type" : "application/json"});
+    response.write(responseBody);
+    response.end();
 }
 
 function recieveFile(request, response){

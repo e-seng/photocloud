@@ -71,6 +71,54 @@ module.exports = {
         return JSON.stringify(finalString);
     },
 
+    getFiles: function getFiles(currentAmount, requestedEpoch){
+        const DESIRED_AMOUNT = 5;
+        let dateExists = false;
+        let responseObj = {"date" : requestedEpoch, "photos" : []};
+        let folderNest;
+
+        do{ // Find the next available date that has files
+            folderNest = ROOT_DIR;
+            let date = new Date(requestedEpoch);
+            let dateParts = date.toISOString().split('T')[0].split('-');
+
+            // Prevent an infinite loop if no files are found
+            // ie. this loops until the year hits 1970, where it is unlikely
+            //     any photos are created during that time
+            if(date.getFullYear() === 1970){
+                responseObj.photos.push("file-end");
+                return responseObj;
+            }
+
+            // Use Array.prototype.every() instead of .forEach();
+            dateExists = dateParts.every(function(part){
+                folderNest = path.join(folderNest, part);
+                console.log(folderNest);
+                return fs.existsSync(folderNest);
+            });
+
+            if(!dateExists) requestedEpoch -= 86400000;
+        }while(!dateExists);
+        
+        // here, a folder outlined by folderNest should exist
+        responseObj.date = requestedEpoch;
+        let filenames = fs.readdirSync(folderNest);
+        let limit = filenames.length;
+
+        for(let counter = 0; counter < DESIRED_AMOUNT; counter++){
+            if(currentAmount + counter >= limit){
+                responseObj.photos.push("date-end");
+                responseObj.date -= 86400000; // ensure next date is queried
+                return responseObj;
+            }
+            let filename = filenames[currentAmount + counter];
+            let filepath = path.join(folderNest, filename);
+            responseObj.photos.push(filepath);
+        }
+
+        return responseObj;
+    },
+
     saveFile: function saveFile(fileJSON){
         try{
 			// Check if the photo directory exists, create it if not
