@@ -79,8 +79,8 @@ function init(){
 
     function requestPhotos(){
         let date = reqDate.getTime();
-        let photoCount = document.querySelectorAll(".photo").length;
-        //let photoCount = document.querySelectorAll(`.${date}`).length;
+        //let photoCount = document.querySelectorAll(".photo").length;
+        let photoCount = document.querySelectorAll(`.${numToLet(date)}`).length;
 
         // Create XHR to call new photos
         const XHR = new XMLHttpRequest();
@@ -91,11 +91,16 @@ function init(){
             queryPhoto = false;
             let response = JSON.parse(XHR.responseText);
             console.log(response);
-            
+
             reqDate = new Date(response.date);
             response.photos.forEach(function(photo){
                 if(limitReached){return;}
-                appendPhoto(photo);
+                if(photo === "date-end"){return;}
+                if(photo === "file-end"){
+                    limitReached = true;
+                    return;
+                }
+                appendPhoto(photo, reqDate);
             });
         }
 

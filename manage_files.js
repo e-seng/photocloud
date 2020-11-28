@@ -63,7 +63,10 @@ module.exports = {
 
         if(!fs.existsSync(FILE_NAME)) fs.writeFileSync(FILE_NAME, "");
         let existingYears = fs.readFileSync("year_list.txt", "utf-8").split('\n');
-        let finalYear = existingYears.slice(-1)[0];
+        // Filter any blanks
+        existingYears = existingYears.filter((el) => {return el});
+
+        let finalYear = Number(existingYears.slice(-1)[0]);
 
         let dateExists = false;
         let responseObj = {"date" : requestedEpoch, "photos" : []};
