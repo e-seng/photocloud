@@ -2,7 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const DIRECTORIES = ["./stockimages/",] 
+const DIRECTORIES = ["./photos/",] 
 // TODO: Set this to be archive filepaths
 // This should be for any old photos within different hard-drives that should
 // not be manipulated (at least written to)
@@ -10,7 +10,7 @@ const DIRECTORIES = ["./stockimages/",]
 // ideally this should eventually be a modifiable text document, but that's 
 // a later thing
 
-const ROOT_DIR = "./stockimages/";
+const ROOT_DIR = "./photos/";
 // This should be the directory where new uploaded files are written to.
 // Files are also read from here when viewing
 

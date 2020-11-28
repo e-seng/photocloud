@@ -1,8 +1,8 @@
 # gitignore
 *.DS*
 
-# Ignore the large folder which I use for testing at home
-WhatsApp_Images\/*
+# Ignore any photos saved
+photos/*
 
 # Do not save node_modules for cleanliness
 node_modules/
@@ -12,3 +12,4 @@ node_modules/
 
 # Ignore photo_list.txt for privacy things
 photo_list.txt
+year_list.txt
