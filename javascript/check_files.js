@@ -25,7 +25,9 @@ function init(){
         numArray = numArray.map(Number);
         let finalString = "";
 
-        numArray.forEach((num) => finalString += String.fromCharCode(num+97));
+        numArray.forEach((num) => {
+            finalString += String.fromCharCode(Number(num) + 97)
+        });
 
         return finalString;
     }
