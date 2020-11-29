@@ -154,8 +154,8 @@ module.exports = {
             let filepath = path.join(folderNest, fileJSON.name);
 
 			let binaryBuffer = Buffer.from(binaryArr);
-            console.log("bonk");
             fs.writeFileSync(filepath, binaryBuffer);
+            console.log(`File successfully written to ${filepath}`);
 
             updateTxt();
 
