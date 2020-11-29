@@ -8,7 +8,7 @@ function init(){
     // Get current date, so data can be pulled starting from here.
     var reqDate = new Date();
     // Remove any data more precise than the date
-    reqDate = new Date(reqDate.toLocaleDateString());
+    reqDate = new Date(`${reqDate.toISOString().split('T')[0]}T07:00:00.000Z`);
 
 	window.onscroll = function(ev){
     	if((window.innerHeight + window.scrollY) > document.body.scrollHeight){
