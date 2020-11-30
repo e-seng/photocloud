@@ -62,7 +62,7 @@ module.exports = {
         const FILE_NAME = "year_list.txt";
 
         if(!fs.existsSync(FILE_NAME)) fs.writeFileSync(FILE_NAME, "");
-        let existingYears = fs.readFileSync("year_list.txt", "utf-8").split('\n');
+        let existingYears = fs.readFileSync(FILE_NAME, "utf-8").split('\n');
         // Filter any blanks
         existingYears = existingYears.filter((el) => {return el});
 
