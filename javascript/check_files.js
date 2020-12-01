@@ -154,14 +154,7 @@ function init(){
         let file = document.querySelector("input[type=file]").files[0];
         uploadFile(file);
         console.log(" good");
-    });
-
-    let submit = document.querySelector("input[type=submit]");
-    submit.addEventListener("click", function(event){
-        let file = document.querySelector("input[type=file]").files[0];
-        uploadFile(file);
-        console.log("mobile good");
-    });
+    })
 }
 
 window.addEventListener("load", () => init());
