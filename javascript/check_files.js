@@ -149,11 +149,18 @@ function init(){
     
     // let submit = document.querySelector("input[type=submit]");
     let form = document.querySelector("form");
-    let file = document.querySelector("input[type=file]").files[0];
     form.addEventListener("submit", function(event){
         event.preventDefault();
+        let file = document.querySelector("input[type=file]").files[0];
         uploadFile(file);
         console.log(" good");
+    });
+
+    let submit = document.querySelector("input[type=submit]");
+    submit.addEventListener("click", function(event){
+        let file = document.querySelector("input[type=file]").files[0];
+        uploadFile(file);
+        console.log("mobile good");
     });
 }
 
