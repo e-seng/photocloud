@@ -103,7 +103,7 @@ function init(){
                     limitReached = true;
                     return;
                 }
-                appendPhoto(photo, reqDate);
+                appendPhoto(photo, reqDate.getTime());
             });
         }
 

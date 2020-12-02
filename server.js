@@ -135,6 +135,13 @@ function recieveFile(request, response){
 		buffer += chunk;
 	});
 	request.on("end", () => {
+        if(!buffer){
+            response.writeHead(406, {"Content-Type" : "text/plain"});
+            response.write("No file found");
+            response.end();
+            return;
+        }
+
 		// console.log(buffer);
 		let fileJSON = JSON.parse(buffer);
         try{
