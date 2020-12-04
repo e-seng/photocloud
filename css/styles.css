@@ -55,3 +55,21 @@ nav{
     height: 100%;
     object-fit: cover;
 }
+
+
+/* Image modal css - allow for screen pop-up stuff*/
+.image-modal{
+    height: calc(100% - 10rem);
+    width: calc(100% - 10rem);
+
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    position: absolute;
+    top: 0;
+    place-items: center;
+
+    padding: 5rem;
+    gap: 1rem;
+    z-index: 10;
+    background-color: #222222dd;
+}
