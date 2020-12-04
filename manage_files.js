@@ -103,7 +103,10 @@ module.exports = {
                 return fs.existsSync(folderNest);
             });
 
-            if(!dateExists) requestedEpoch -= 86400000;
+            if(!dateExists){
+                requestedEpoch -= 86400000;
+                currentAmount = 0;
+            }
         }while(!dateExists);
         
         // here, a folder outlined by folderNest should exist
