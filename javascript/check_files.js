@@ -155,6 +155,10 @@ function init(){
         uploadFile(file);
         console.log(" good");
     })
+
+    function enlargePhoto(photopath){
+        return; //pass for now
+    }
 }
 
 window.addEventListener("load", () => init());
