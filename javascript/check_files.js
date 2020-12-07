@@ -166,6 +166,10 @@ function init(){
     function modalExit(){
         document.querySelector(".image-modal").classList.add("modal-hidden");
     }
+
+    document.querySelector(".image-modal").addEventListener("click", () => {
+        modalExit();
+    });
 }
 
 window.addEventListener("load", () => init());
