@@ -50,6 +50,8 @@ function init(){
         newPhoto.classList.add(numToLet(requestDate));
 		newPhoto.src = photoPath;
 
+        newPhoto.addEventListener("click", () => enlargePhoto(photoPath));
+
 		let photoWrapper = document.querySelector("#photos");
 
 		photoWrapper.appendChild(newPhoto);
@@ -156,8 +158,13 @@ function init(){
         console.log(" good");
     })
 
-    function enlargePhoto(photopath){
-        return; //pass for now
+    function enlargePhoto(photoname){
+        document.querySelector("#focus-image").src = photoname;
+        document.querySelector(".image-modal").classList.remove("modal-hidden");
+    }
+
+    function modalExit(){
+        document.querySelector(".image-modal").classList.add("modal-hidden");
     }
 }
 
