@@ -4,6 +4,7 @@
 
 	--background: #424242;
 	--banner-background: #d3d3f3;
+    --modal-background: #222222dd;
 }
 
 body{
@@ -90,9 +91,16 @@ nav{
 .exit{
     height: 5rem;
     width: 100%;
-    background-color: red;
-    z-index: 6;
+    background-color: var(--modal-background);
+    z-index: 10;
     position: relative;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.exit-icon{
+    margin: 0 1rem;
 }
 
 #focus-image{
@@ -103,7 +111,7 @@ nav{
 .blur{
     height: 100vh;
     width: 100vw;
-    background-color: #222222dd;
+    background-color: var(--modal-background);
     position: fixed;
     top: 0;
     z-index: 5;
