@@ -84,7 +84,15 @@ nav{
     padding: 5rem;
     gap: 1rem;
     z-index: 10;
-    background-color: #222222dd;
+    /* background-color: #222222dd;*/
+}
+
+.exit{
+    height: 5rem;
+    width: 100%;
+    background-color: red;
+    z-index: 6;
+    position: relative;
 }
 
 #focus-image{

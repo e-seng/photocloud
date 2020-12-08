@@ -167,7 +167,7 @@ function init(){
         document.querySelector(".image-modal").classList.add("modal-hidden");
     }
 
-    document.querySelector(".image-modal").addEventListener("click", () => {
+    document.querySelector(".blur").addEventListener("click", () => {
         modalExit();
     });
 }
