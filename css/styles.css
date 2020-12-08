@@ -5,6 +5,7 @@
 	--background: #424242;
 	--banner-background: #d3d3f3;
     --modal-background: #222222dd;
+    --modal-nav: #aaaaaa;
 }
 
 body{
@@ -91,9 +92,11 @@ nav{
 .exit{
     height: 5rem;
     width: 100%;
+
     background-color: var(--modal-background);
     z-index: 10;
     position: relative;
+    
     display: flex;
     justify-content: right;
     align-items: center;
@@ -101,6 +104,12 @@ nav{
 
 .exit-icon{
     margin: 0 1rem;
+    color: white;
+    color: var(--modal-nav);
+}
+
+#cycle_left, #cycle_right{
+    color: var(--modal-nav);
 }
 
 #focus-image{
