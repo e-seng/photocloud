@@ -57,31 +57,6 @@ function init(){
 		photoWrapper.appendChild(newPhoto);
 	}
 
-    /* This is the old requestPhotos function
-	function requestPhotos(){
-	    let photoCount = document.querySelectorAll(".photo").length;
-        const photosToAdd = 5;
-    
-    	// Call for the next photos to be loaded
-	    const XHR = new XMLHttpRequest();
-
-        XHR.onreadystatechange = function(){
-        	if(this.readyState !== 4 && this.status !== 200){return;}
-	        if(photoArray.includes(XHR.responseText)){return;}
-			if(!XHR.responseText){return;}
-			let photos = JSON.parse(XHR.responseText);
-			photos.forEach(function(photo){
-				if(limitReached){return;}
-				appendPhoto(photo);
-			});
-    	}
-
-	    if(limitReached){return;}
-
-	    XHR.open("GET", `./getphotos?add=${photosToAdd}&current=${photoCount}`);
-        XHR.send();
-	} // */
-
     function requestPhotos(){
         let date = reqDate.getTime();
         //let photoCount = document.querySelectorAll(".photo").length;
@@ -148,7 +123,7 @@ function init(){
 
         fr.readAsArrayBuffer(file);
     }
-    
+
     // let submit = document.querySelector("input[type=submit]");
     let form = document.querySelector("form");
     form.addEventListener("submit", function(event){
