@@ -44,7 +44,7 @@ function init(){
 		//Prevent duplicate photos
 		if(photoArray.includes(photoPath)){return;}
 		photoArray.push(photoPath);
-	
+
 		let newPhoto = document.createElement("img");
 		newPhoto.classList.add("photo");
         newPhoto.classList.add(numToLet(requestDate));
@@ -64,7 +64,7 @@ function init(){
 
         // Create XHR to call new photos
         const XHR = new XMLHttpRequest();
-        
+
         XHR.onreadystatechange = function(){
             if(XHR.readyState !== 4 && this.status !== 200){return;}
             if(!XHR.responseText){return;}
