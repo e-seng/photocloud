@@ -169,16 +169,20 @@ function init(){
 
     // Work out navigation stuff;
     document.querySelector("#cycle_left").addEventListener("click", () => {
-        let currentPhoto = document.querySelector("#focus-image").src;
+        let fullPhotoSrc = document.querySelector("#focus-image").src;
+        // Get the photo name, and reattach it to the proper path
+        let currentPhoto = `photos/${fullPhotoSrc.split("photos/")[1]}`;
         let imageIndex = photoArray.indexOf(currentPhoto);
-        
+
         if(imageIndex - 1 < 0) return;
 
         document.querySelector("#focus-image").src = photoArray[imageIndex - 1];
     });
 
     document.querySelector("#cycle_right").addEventListener("click", () => {
-        let currentPhoto = document.querySelector("#focus-image").src;
+        let fullPhotoSrc = document.querySelector("#focus-image").src;
+        // Get the photo name, and reattach it to the proper path
+        let currentPhoto = `photos/${fullPhotoSrc.split("photos/")[1]}`;
         let imageIndex = photoArray.indexOf(currentPhoto);
 
         if(imageIndex + 1 >= photoArray.length) return;
