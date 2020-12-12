@@ -131,7 +131,7 @@ function init(){
         let file = document.querySelector("input[type=file]").files[0];
         uploadFile(file);
         console.log(" good");
-    })
+    });
 
     function enlargePhoto(photoname){
         document.querySelector("#focus-image").src = photoname;
