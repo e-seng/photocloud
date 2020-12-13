@@ -139,7 +139,7 @@ function init(){
     }
 
     function modalExit(){
-        document.querySelector(".image-modal").classList.add("modal-hidden");
+        document.querySelector("section").classList.add("modal-hidden");
     }
 
     // Work out navigation stuff;
