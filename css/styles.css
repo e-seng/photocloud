@@ -62,6 +62,12 @@ nav ul{
     vertical-align: middle;
 }
 
+#title-upload-container{
+    margin: 0 auto;
+    height: 3rem;
+    width: 3rem;
+}
+
 #photos{
     display: grid;
     min-height: 51vh;

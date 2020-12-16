@@ -17,21 +17,16 @@
 				<li>
 					<h3>The Family Photo Album</h3>
 				</li>
-				<li>
+				<li id="nav-upload-container">
+                    <img class="upload-toggle" src="assets/upload.png" />
 				</li>
 			</ul>
 		</nav>
         <div id="title">
             <h1>The Family Photo Album</h1>
-			<form>
-				<label> file upload
-					<input type="file" id="fileupload" />
-				</label>
-                <label>
-                    submit
-                    <input type="submit" />
-                </label>
-			</form>
+            <div id="title-upload-container">
+                <img class="upload-toggle" src="assets/upload.png" />
+            </div>
         </div>
         <div id="photos"></div>
     </body>
@@ -50,6 +45,16 @@
         <div class="blur"></div>
         <div class="item-layout">
             <div class="upload-container">
+			<form>
+				<label> file upload
+					<input type="file" id="fileupload" />
+				</label>
+                <label>
+                    submit
+                    <input type="submit" />
+                </label>
+			</form>
+            </div>
         </div>
         <div class="exit">
             <h2 class="exit-icon">X</h2>
