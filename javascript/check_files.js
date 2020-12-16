@@ -143,7 +143,7 @@ function init(){
     }
 
     // Work out navigation stuff;
-    document.querySelector("#cycle_left").addEventListener("click", () => {
+    document.querySelector("#cycle-left").addEventListener("click", () => {
         let fullPhotoSrc = document.querySelector("#focus-image").src;
         // Get the photo name, and reattach it to the proper path
         let currentPhoto = `photos/${fullPhotoSrc.split("photos/")[1]}`;
@@ -154,7 +154,7 @@ function init(){
         document.querySelector("#focus-image").src = photoArray[imageIndex - 1];
     });
 
-    document.querySelector("#cycle_right").addEventListener("click", () => {
+    document.querySelector("#cycle-right").addEventListener("click", () => {
         let fullPhotoSrc = document.querySelector("#focus-image").src;
         // Get the photo name, and reattach it to the proper path
         let currentPhoto = `photos/${fullPhotoSrc.split("photos/")[1]}`;
