@@ -23,6 +23,30 @@ nav{
 	z-index: 1;
 }
 
+nav li h3{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    line-height: 3rem;
+}
+
+nav ul{
+    display: flex;
+    list-style: none;
+    max-height: 3rem;
+    padding: 0 2rem;
+}
+
+#nav-upload-container{
+    margin-left: auto;
+    height: 3rem;
+}
+
+.upload-toggle{
+    display: block;
+    height: 100%;
+}
+
 #title{
 	position: relative;
     height: 50vh;
