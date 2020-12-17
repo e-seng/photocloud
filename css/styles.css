@@ -90,7 +90,7 @@ nav ul{
 
 
 /* Image modal css - allow for screen pop-up stuff*/
-.image-modal{
+.image-modal, .upload-modal{
     padding: 0;
     margin: 0;
     height: 100%;

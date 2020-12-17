@@ -139,7 +139,9 @@ function init(){
     }
 
     function modalExit(){
-        document.querySelector("section").classList.add("modal-hidden");
+        document.querySelectorAll("section").forEach((element) => {
+            element.classList.add("modal-hidden")
+        });
     }
 
     // Work out navigation stuff;
@@ -165,8 +167,8 @@ function init(){
         document.querySelector("#focus-image").src = photoArray[imageIndex + 1];
     });
 
-    document.querySelector(".exit").addEventListener("click", () => {
-        modalExit();
+    document.querySelectorAll(".exit").forEach((element) => {
+        element.addEventListener("click", () => modalExit());
     });
 }
 
