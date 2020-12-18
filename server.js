@@ -11,7 +11,7 @@ const ROOT_DIR = process.cwd(); // this should be altered in deployment
 
 function getFileType(request){
     let filename = request.url;
-    return filename.split('.').slice(-1)[0];
+    return filename.split('.').slice(-1)[0].toLowerCase();
 }
 
 function error404(response){
