@@ -138,6 +138,10 @@ function init(){
         document.querySelector(".image-modal").classList.remove("modal-hidden");
     }
 
+    function openUploadModal(){
+        document.querySelector(".upload-modal").classList.remove("modal-hidden");
+    }
+
     function modalExit(){
         document.querySelectorAll("section").forEach((element) => {
             element.classList.add("modal-hidden")
@@ -169,6 +173,10 @@ function init(){
 
     document.querySelectorAll(".exit").forEach((element) => {
         element.addEventListener("click", () => modalExit());
+    });
+    
+    document.querySelectorAll(".upload-toggle").forEach((element) => {
+        element.addEventListener("click", () => openUploadModal());
     });
 }
 
