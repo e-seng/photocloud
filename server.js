@@ -160,11 +160,12 @@ function recieveFile(request, response){
 
 function onRequest(request, response){
     const imageTypes = ["jpg", "jpeg", "png", "jfif", "gif", "bmp", "tiff"];
+    let curDate = new Date().toISOString();
     let ip = (request.headers['x-forwarded-for'] || '').split(',').pop() ||
          request.connection.remoteAddress ||
          request.socket.remoteAddress ||
          request.connection.socket.remoteAddress;
-    console.log(`${ip} made a ${request.method} request to ${request.url}`);
+    console.log(`[${curDate}] ${ip} made a ${request.method} request to ${request.url}`);
 
     if(request.method == "GET" && request.url == "/"){
         // manager.updateTxt();
