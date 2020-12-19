@@ -80,11 +80,11 @@ function init(){
             reqDate = new Date(response.date);
             response.photos.forEach(function(photo){
                 if(limitReached){return;}
-                if(photo === "date-end"){return;}
                 if(photo === "file-end"){
                     limitReached = true;
                     return;
                 }
+
                 appendPhoto(photo, reqDate.getTime());
             });
         }
