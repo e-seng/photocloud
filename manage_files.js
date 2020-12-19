@@ -117,7 +117,6 @@ module.exports = {
         for(let counter = 0; counter < DESIRED_AMOUNT; counter++){
             if(currentAmount + counter >= limit){
                 responseObj.photos.push("date-end");
-                responseObj.date -= 86400000; // ensure next date is queried
                 return responseObj;
             }
             let filename = filenames[currentAmount + counter];

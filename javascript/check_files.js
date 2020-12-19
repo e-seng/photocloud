@@ -40,6 +40,11 @@ function init(){
 			console.log("oh no");
 			return;
 		}
+        if(photoPath === "date-end"){
+            oldDate = reqDate.getTime();
+            reqDate = new Date(oldDate - 86400000);
+            return;
+        }
 
 		//Prevent duplicate photos
 		if(photoArray.includes(photoPath)){return;}
