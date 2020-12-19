@@ -109,9 +109,14 @@ function init(){
 	    limitReached = !photoArray.length; 
 	}
 
+    function uploadProgress(event){
+        console.log(event, event.loaded, event.total);
+    }
+
     function uploadFile(file){
         const fr = new FileReader();
         const XHR = new XMLHttpRequest();
+        XHR.upload.onprogress = uploadProgress;
 
         let stream = {};
         stream.name = file.name;
