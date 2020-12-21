@@ -2,7 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 
-var DIRECTORIES = ["./photos/",] 
+var DIRECTORIES; 
 // TODO: Set this to be archive filepaths
 // This should be for any old photos within different hard-drives that should
 // not be manipulated (at least written to)
@@ -10,20 +10,36 @@ var DIRECTORIES = ["./photos/",]
 // ideally this should eventually be a modifiable text document, but that's 
 // a later thing
 
-var ROOT_DIR = "./photos/";
+var ROOT_DIR;
 // This should be the directory where new uploaded files are written to.
 // Files are also read from here when viewing
+var MNGR_NAME, UPLD_COUNT;
+
+function readConfig(configFile){
+    configFile = configFile || "./config.json";
+    let config;
+
+    try{
+        config = JSON.parse(fs.readFileSync(configFile).toString());
+    }catch(err){
+        console.log(`Error: ${err}`);
+        return;
+    }
+
+    ROOT_DIR = config.filesys.savePath || "./photos/";
+    DIRECTORIES = config.filesys.photoPaths || ["./photos"];
+    MNGR_NAME = config.filesys.managerFile || "year_list.txt";
+    UPLD_COUNT = config.server.streamCount || 5;
+}
 
 function updateTxt(){
-    const FILE_NAME = "year_list.txt";
-
-    if(!fs.existsSync(FILE_NAME)){
+    if(!fs.existsSync(MNGR_NAME)){
         // Create a blank file, which photos can be written to
-        fs.writeFileSync(FILE_NAME, "");
+        fs.writeFileSync(MNGR_NAME, "");
     }
 
     let years = fs.readdirSync(ROOT_DIR);
-    let existingYears = fs.readFileSync(FILE_NAME, "utf-8").split("\n");
+    let existingYears = fs.readFileSync(MNGR_NAME, "utf-8").split("\n");
     years.forEach(year => {
         if(existingYears.includes(year)) return;
         existingYears.push(year)
@@ -33,8 +49,10 @@ function updateTxt(){
     // Remove any empty elements
     existingYears.filter((element) => {return !!element;});
 
-    fs.writeFileSync(FILE_NAME, existingYears.join('\n'));
+    fs.writeFileSync(MNGR_NAME, existingYears.join('\n'));
 }
+
+readConfig();
 
 module.exports = {
     getFilesLegacy: function getFilesLegacy(desiredAmount, currentCount){
@@ -58,11 +76,8 @@ module.exports = {
     },
 
     getFiles: function getFiles(currentAmount, requestedEpoch){
-        const DESIRED_AMOUNT = 5;
-        const FILE_NAME = "year_list.txt";
-
-        if(!fs.existsSync(FILE_NAME)) fs.writeFileSync(FILE_NAME, "");
-        let existingYears = fs.readFileSync(FILE_NAME, "utf-8").split('\n');
+        if(!fs.existsSync(MNGR_NAME)) fs.writeFileSync(MNGR_NAME, "");
+        let existingYears = fs.readFileSync(MNGR_NAME, "utf-8").split('\n');
         // Filter any blanks
         existingYears = existingYears.filter((el) => {return el});
 
@@ -114,7 +129,7 @@ module.exports = {
         let filenames = fs.readdirSync(folderNest);
         let limit = filenames.length;
 
-        for(let counter = 0; counter < DESIRED_AMOUNT; counter++){
+        for(let counter = 0; counter < UPLD_COUNT; counter++){
             if(currentAmount + counter >= limit){
                 responseObj.photos.push("date-end");
                 return responseObj;

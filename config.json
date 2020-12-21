@@ -2,10 +2,12 @@
     "filesys" : {
         "rootDir" : "",
         "photoPaths" : [""],
-        "savePath" : ""
+        "savePath" : "",
+        "managerFile" : ""
     },
 
     "server" : {
-        "port" : 8080
+        "port" : 8080,
+        "streamCount" : 5
     }
 }
