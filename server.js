@@ -139,9 +139,6 @@ function getPhotos(request, response){
 }
 
 function recieveFile(request, response){
-	let tmpDir = path.join(ROOT_DIR, "tmp");
-	if(!fs.existsSync(tmpDir)){fs.mkdirSync(tmpDir);}
-
 	let buffer = "";
 	
 	request.on("data", chunk => {
