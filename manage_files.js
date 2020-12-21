@@ -175,11 +175,6 @@ module.exports = {
             console.log(`File successfully written to ${filepath}`);
 
             updateTxt();
-
-			// TODO : Move photo into relevant nested folder
-			// use time: <root>/<year>/<month>/<day>/file.ext
-			// time info given in epoch within fileInfo.lastModified
-
 		}catch(err){
             throw err;
 		}
