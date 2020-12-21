@@ -1,0 +1,10 @@
+{
+    "filesys" : {
+        "root-dir" : "",
+        "photo-paths" : [""]
+    },
+
+    "server" : {
+        "port" : 8080
+    }
+}
