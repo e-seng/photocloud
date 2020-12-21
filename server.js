@@ -6,8 +6,21 @@ const qs = require("querystring");
 
 const manager = require("./manage_files.js")
 
-const PORT = 9000;
-const ROOT_DIR = process.cwd(); // this should be altered in deployment
+var PORT, ROOT_DIR;
+
+function readConfig(configFile){
+    configFile = configFile || "./config.json";
+    let config;
+    try{
+        config = JSON.parse(fs.readFileSync(configFile).toString());
+    }catch(err){
+        console.log(`Error reading config file: ${err}`);
+        return;
+    }
+
+    PORT = config.server.port || 9000;
+    ROOT_DIR = config.filesys.rootDir || process.cwd();
+}
 
 function getFileType(request){
     let filename = request.url;
@@ -186,5 +199,6 @@ function onRequest(request, response){
 
 }
 
+readConfig();
 http.createServer(onRequest).listen(PORT);
 console.log("Local server started on %d", PORT);

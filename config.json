@@ -1,7 +1,8 @@
 {
     "filesys" : {
-        "root-dir" : "",
-        "photo-paths" : [""]
+        "rootDir" : "",
+        "photoPaths" : [""],
+        "savePath" : ""
     },
 
     "server" : {
